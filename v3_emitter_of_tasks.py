@@ -1,20 +1,30 @@
 """
-    Julia Fangman
-    May 23, 2024
+    RabbitMQ Project - Version 3
+    Automating Tasks from a CSV file to RabbitMQ.
+
+    Author: Julia Fangman
+    Date: May 23, 2024
 
 """
-import csv
+
 import pika
 import sys
 import webbrowser
+import csv
 
+# Configure Logging
+from util_logger import setup_logger
+
+logger, logname = setup_logger(__file__)
+# Offer to open RabbitMQ Admin Page
 def offer_rabbitmq_admin_site():
     """Offer to open the RabbitMQ Admin website"""
     ans = input("Would you like to monitor RabbitMQ queues? y or n ")
     print()
     if ans.lower() == "y":
         webbrowser.open_new("http://localhost:15672/#/queues")
-        print()
+        logger.info("Opened RabbitMQ")
+        
 
 def send_message(host: str, queue_name: str, message: str):
     """
@@ -41,39 +51,27 @@ def send_message(host: str, queue_name: str, message: str):
         # every message passes through an exchange
         ch.basic_publish(exchange="", routing_key=queue_name, body=message)
         # print a message to the console for the user
-        print(f" [x] Sent {message}")
+        logger.info(f" [x] Sent {message}")
     except pika.exceptions.AMQPConnectionError as e:
-        print(f"Error: Connection to RabbitMQ server failed: {e}")
+        logger.error(f"Error: Connection to RabbitMQ server failed: {e}")
         sys.exit(1)
     finally:
         # close the connection to the server
         conn.close()
 
-def read_tasks_from_csv(file_path: str):
-    """Read tasks from a CSV file and return them as a list."""
-    tasks = []
+# Read tasks from csv and send to RabbitMQ server
+def read_and_send_tasks_from_csv(file_path: str, host: str, queue_name: str):
     with open(file_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            tasks.append(row['task'])
-    return tasks
-
-def send_tasks_from_csv(file_path: str, host: str, queue_name: str):
-    """Send tasks from a CSV file to RabbitMQ."""
-    tasks = read_tasks_from_csv(file_path)
-    for task in tasks:
-        send_message(host, queue_name, task)
-
-# Standard Python idiom to indicate main program entry point
-# This allows us to import this module and use its functions
-# without executing the code below.
-# If this is the program being run, then execute the code below
+        reader = csv.reader(csvfile)
+        for row in reader: 
+            message = " ".join(row)
+            send_message(host, queue_name, message)
 if __name__ == "__main__":
-    # ask the user if they'd like to open the RabbitMQ Admin site
+    # Offers to open RabbitMQ admin page
     offer_rabbitmq_admin_site()
-    
-    # assign the filename to a variable
+    # Define file_name variables file_name, host, and queue_name 
     file_name = 'tasks.csv'
-    
-    # send tasks from the specified CSV file to the queue
-    send_tasks_from_csv(file_name, "localhost", "task_queue2")
+    host = "localhost"
+    queue_name = "task_queue3"
+    # Send the tasks to the queue
+    read_and_send_tasks_from_csv(file_name, host, queue_name)
