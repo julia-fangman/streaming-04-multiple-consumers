@@ -1,5 +1,10 @@
 """
 
+
+Julia Fangman
+May 23, 2024
+
+
 Creates and sends a task message to the queue each execution.
 This process runs and finishes. 
 Make tasks harder/longer-running by adding dots at the end of the message.
@@ -27,7 +32,7 @@ def offer_rabbitmq_admin_site():
 offer_rabbitmq_admin_site()
 
 # create a blocking connection to the RabbitMQ server
-connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost"))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host="localhost", port=15672))
 # use the connection to create a communication channel
 channel = connection.channel()
 # use the channel to declare a durable queue

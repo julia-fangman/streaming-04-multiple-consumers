@@ -1,5 +1,9 @@
 """
 
+
+Julia Fangman
+May 23, 2024
+
 Listens for task messages on the queue.
 This process runs continously. 
 
