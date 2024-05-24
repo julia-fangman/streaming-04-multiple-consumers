@@ -70,8 +70,8 @@ if __name__ == "__main__":
     # Offers to open RabbitMQ admin page
     offer_rabbitmq_admin_site()
     # Define file_name variables file_name, host, and queue_name 
-    file_name = 'tasks.csv'
+    file_name = '/Users/juliafangman/Documents/streaming-04-multiple-consumers/streaming-04-multiple-consumers/tasks.csv'
     host = "localhost"
-    queue_name = "task_queue3"
+    queue_name = "task_queue4"
     # Send the tasks to the queue
     read_and_send_tasks_from_csv(file_name, host, queue_name)
