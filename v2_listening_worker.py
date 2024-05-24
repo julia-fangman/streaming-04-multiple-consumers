@@ -1,4 +1,8 @@
 """
+
+Julia Fangman
+May 23, 2024
+
     This program listens for work messages contiously. 
     Start multiple versions to add more workers.  
 
