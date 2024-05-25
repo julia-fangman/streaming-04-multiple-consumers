@@ -2,7 +2,6 @@
 Julia Fangman
 May 24, 2024
 
-![All 3 terminals](All 3 terminals.png)
 
 > Use RabbitMQ to distribute tasks to multiple workers
 
