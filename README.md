@@ -2,6 +2,8 @@
 Julia Fangman
 May 24, 2024
 
+![All 3 terminals](All 3 terminals.png)
+
 > Use RabbitMQ to distribute tasks to multiple workers
 
 One process will create task messages. Multiple worker processes will share the work. 
