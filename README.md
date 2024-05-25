@@ -2,8 +2,6 @@
 Julia Fangman
 May 24, 2024
 
-![All 3 terminals](threeterminals.png)
-
 
 
 > Use RabbitMQ to distribute tasks to multiple workers
@@ -64,3 +62,4 @@ Which worker gets which tasks?
 ## Screenshot
 
 See a running example with at least 3 concurrent process windows here:
+![All 3 terminals](threeterminals.png)
