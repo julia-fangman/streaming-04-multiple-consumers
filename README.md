@@ -63,4 +63,5 @@ Which worker gets which tasks?
 
 See a running example with at least 3 concurrent process windows here:
 
-![Multiple Consumers](Streaming 4.png)
+![Multiple Consumers](Streaming%204.png)
+
